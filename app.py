@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 from google.cloud import firestore
 
-# db = firestore.Client.from_service_account_json("serviceAccountKey.json")
+db = firestore.Client.from_service_account_json("serviceAccountKey.json")
 
 # docs = db.collection("iris").stream()
 # data = []
