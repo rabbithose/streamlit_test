@@ -5,7 +5,7 @@ from google.cloud import firestore
 
 db = firestore.Client.from_service_account_json("serviceAccountKey.json")
 
-st.write(type(df))
+st.header(type(df))
 # docs = db.collection("iris").stream()
 # data = []
 # for d in docs:
