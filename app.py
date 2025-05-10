@@ -1,9 +1,9 @@
 import streamlit as st
 
 import pandas as pd
-from google.cloud import firestore
+# from google.cloud import firestore
 st.header("test")
-db = firestore.Client.from_service_account_json("serviceAccountKey.json")
+# db = firestore.Client.from_service_account_json("serviceAccountKey.json")
 
 # st.header(type(df))
 # docs = db.collection("iris").stream()
