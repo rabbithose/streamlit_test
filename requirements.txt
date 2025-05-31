@@ -1,3 +1,2 @@
 streamlit
-google.cloud
-pydata-google-auth
+google-cloud-firestore
