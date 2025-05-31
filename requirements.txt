@@ -1,3 +1,2 @@
 streamlit
-google.cloud
-google.oauth2
+google
