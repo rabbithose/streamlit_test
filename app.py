@@ -1,17 +1,30 @@
 import streamlit as st
-
-import pandas as pd
 from google.cloud import firestore
-st.header("test")
-db = firestore.Client.from_service_account_json("serviceAccountKey.json")
 
-st.write(db)
-# docs = db.collection("iris").stream()
-# data = []
-# for d in docs:
-#     data.append(d.to_dict())
-spieces = st.sidebar.selectbox("spieces", ["setosa","versicolor","virginica"])
-# df = pd.DataFrame(data)
-# df = df[df["species"] == spieces].reset_index(drop=True)
-# st.write(df)
-# st.line_chart(df, x="sepal_length", y="sepal_width")
+from google.oauth2 import service_account
+import json
+key_dict = json.loads(st.secrets["textkey"])
+creds = service_account.Credentials.from_service_account_info(key_dict)
+db = firestore.Client(credentials=creds, project="streamlit-test-1c36d")
+
+# Streamlit widgets to let a user create a new post
+title = st.text_input("Post title")
+url = st.text_input("Post url")
+submit = st.button("Submit new post")
+
+# Once the user has submitted, upload it to the database
+if title and url and submit:
+    doc_ref = db.collection("posts").document(title)
+    doc_ref.set({
+    "title": title,
+    "url": url
+    })
+
+# And then render each post, using some light Markdown
+posts_ref = db.collection("posts")
+for doc in posts_ref.stream():
+    post = doc.to_dict()
+    title = post["title"]
+    url = post["url"]
+    st.subheader(f"Post: {title}")
+    st.write(f":link: [{url}]({url})")
